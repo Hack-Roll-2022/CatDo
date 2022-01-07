@@ -31,13 +31,14 @@ public class Window {
             mParams = new WindowManager.LayoutParams(
                     // Shrink the window to wrap the content rather
                     // than filling the screen
-                    WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
+                    //WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
                     // Display it on top of other application windows
                     WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                     // Don't let it grab the input focus
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     // Make the underlying application window visible
                     // through any transparent parts
+
                     PixelFormat.TRANSLUCENT);
 
         }
@@ -64,27 +65,6 @@ public class Window {
         // ref: https://stackoverflow.com/questions/9035678/android-how-to-dragmove-popupwindow
         View mPopupScreen = mView.findViewById(R.id.popup_screen);
 
-        /*
-        mPopupScreen.setOnDragListener(new View.OnDragListener() {
-            private int dx = 0;
-            private int dy = 0;
-
-            @Override
-            public boolean onDrag(View view, DragEvent dragEvent) {
-                System.out.println("HIIII");
-                int x = view.getScrollX();
-                int y = view.getScrollY();
-
-                view.setTranslationX(x);
-                view.setTranslationY(y);
-                System.out.println(x + " , " + y);
-
-                return true;
-            }
-        });
-
-         */
-
 
         // Define the position of the
         // window within the screen
@@ -99,7 +79,7 @@ public class Window {
         //PathInterpolator pathInterpolator = new PathInterpolator(path);
 
         // TODO: animation for window
-        Animation.specifyAnimation(mPopupScreen, 100, true);
+        Animation.specifyAnimation(mPopupScreen, 300, true);
 
 
     }
