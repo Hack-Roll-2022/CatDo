@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
         <TableRow
-            android:layout_width="wrap_content"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -17,6 +17,8 @@
                     android:id="@+id/cat1"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
                     android:scaleType="fitCenter"
                     android:background="@drawable/cat1" />
 
@@ -24,22 +26,10 @@
                     android:id="@+id/cat2"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
                     android:scaleType="fitCenter"
                     android:background="@drawable/cat2" />
-
-<!--                <ImageButton-->
-<!--                    android:id="@+id/cat3"-->
-<!--                    android:layout_width="90dp"-->
-<!--                    android:layout_height="90dp"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    android:background="@drawable/cat3" />-->
-
-<!--                <ImageButton-->
-<!--                    android:id="@+id/cat4"-->
-<!--                    android:layout_width="90dp"-->
-<!--                    android:layout_height="90dp"-->
-<!--                    android:scaleType="fitCenter"-->
-<!--                    android:background="@drawable/cat4" />-->
         </TableRow>
 
 
