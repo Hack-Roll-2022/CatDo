@@ -62,7 +62,6 @@ public class Window {
     }
 
 
-
     public void open() {
 
         try {

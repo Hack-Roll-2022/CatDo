@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CountDownTimer mCountDownTimer;
 
-    private boolean mTimerRunning;
+    public static boolean mTimerRunning;
 
 
     private AppLifecycleObserver appLifecycleObserver = null;
@@ -138,8 +138,16 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 mTimerRunning = false;
                 updateWatchInterface();
+                System.out.println("[onFinished] I am DONE");
 
                 ProcessLifecycleOwner.get().getLifecycle().removeObserver(appLifecycleObserver);
+                System.out.println("[onFinished] Entered, shld be");
+                if (appLifecycleObserver != null) {
+                    System.out.println("Not null");
+                    appLifecycleObserver.onEnterForeground(); // add 1 more just to check
+
+                }
+                
             }
         }.start();
 
@@ -149,6 +157,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void pauseTimer() {
         ProcessLifecycleOwner.get().getLifecycle().removeObserver(appLifecycleObserver);
+        System.out.println("[pauseTimer] Entered, shld be");
+        if (appLifecycleObserver != null) {
+            System.out.println("Not null");
+            appLifecycleObserver.onEnterForeground(); // add 1 more just to check
+
+        }
 
         mCountDownTimer.cancel();
         mTimerRunning = false;
@@ -156,6 +170,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resetTimer() {
+        ProcessLifecycleOwner.get().getLifecycle().removeObserver(appLifecycleObserver);
+        System.out.println("[resetTimer] Entered, shld be");
+        if (appLifecycleObserver != null) {
+            System.out.println("Not null");
+            appLifecycleObserver.onEnterForeground(); // add 1 more just to check
+
+        }
+
         _timeLeft = _startTime;
         updateCountDownText();
         updateWatchInterface();
@@ -215,7 +237,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
@@ -253,6 +274,16 @@ public class MainActivity extends AppCompatActivity {
                 mTimerRunning = false;
                 updateCountDownText();
                 updateWatchInterface();
+
+
+                ProcessLifecycleOwner.get().getLifecycle().removeObserver(appLifecycleObserver);
+                System.out.println("[onStart] Entered, shld be");
+                if (appLifecycleObserver != null) {
+                    System.out.println("Not null");
+                    appLifecycleObserver.onEnterForeground(); // add 1 more just to check
+
+                }
+
             } else {
                 startTimer();
             }
