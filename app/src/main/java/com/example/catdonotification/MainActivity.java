@@ -18,7 +18,9 @@ import android.widget.Toast;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-
+    private long _startTime;
+    private long _endTime;
+    private long _timeLeft;
 
     private TextView mTextViewCountDown;
     private Button mButtonStartPause;
@@ -29,10 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private CountDownTimer mCountDownTimer;
 
     private boolean mTimerRunning;
-
-    private long mStartTimeInMillis;
-    private long mTimeLeftInMillis;
-    private long mEndTime;
 
 
     @Override
@@ -46,6 +44,17 @@ public class MainActivity extends AppCompatActivity {
         mButtonSet = findViewById(R.id.button_set);
         mButtonStartPause = findViewById(R.id.button_start_pause);
         mButtonReset = findViewById(R.id.button_reset);
+
+        mButtonStartPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mTimerRunning) {
+                    pauseTimer();
+                } else {
+                    startTimer();
+                }
+            }
+        });
 
         mButtonSet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,74 +76,73 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mButtonStartPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mTimerRunning) {
-                    pauseTimer();
-                } else {
-                    startTimer();
-                }
-            }
-        });
-
         mButtonReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetTimer();
+                String input = mEditTextInput.getText().toString();
+                if (input.length() == 0) {
+                    Toast.makeText(MainActivity.this, "Field can't be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                long millisInput = Long.parseLong(input) * 60000;
+                if (millisInput == 0) {
+                    Toast.makeText(MainActivity.this, "Please enter a positive number", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                setTime(millisInput);
+                mEditTextInput.setText("");
             }
         });
-
-        updateCountDownText();
     }
 
-    private void setTime(long milliseconds) {
-        mStartTimeInMillis = milliseconds;
+    private void setTime(long timeInMs) {
+        _startTime = timeInMs;
         resetTimer();
         closeKeyboard();
     }
 
     private void startTimer() {
-        mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
+        _endTime = System.currentTimeMillis() + _timeLeft;
+
+        mCountDownTimer = new CountDownTimer(_timeLeft, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                mTimeLeftInMillis = millisUntilFinished;
+                _timeLeft = millisUntilFinished;
                 updateCountDownText();
             }
 
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-                mButtonStartPause.setText("Start");
-                mButtonStartPause.setVisibility(View.INVISIBLE);
-                mButtonReset.setVisibility(View.VISIBLE);
+                updateWatchInterface();
             }
         }.start();
 
         mTimerRunning = true;
-        mButtonStartPause.setText("pause");
-        mButtonReset.setVisibility(View.INVISIBLE);
+        updateWatchInterface();
     }
 
     private void pauseTimer() {
         mCountDownTimer.cancel();
         mTimerRunning = false;
-        mButtonStartPause.setText("Start");
-        mButtonReset.setVisibility(View.VISIBLE);
+        updateWatchInterface();
     }
 
     private void resetTimer() {
-        mTimeLeftInMillis = mStartTimeInMillis;
+        _timeLeft = _startTime;
         updateCountDownText();
         updateWatchInterface();
     }
 
     private void updateCountDownText() {
-        int hours = (int) (mTimeLeftInMillis / 1000) / 3600;
-        int minutes = (int) ((mTimeLeftInMillis / 1000) % 3600) / 60;
-        int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+        int hours = (int) (_timeLeft / 1000) / 3600;
+        int minutes = (int) (_timeLeft / 1000) / 60;
+        int seconds = (int) (_timeLeft / 1000) % 60;
 
-        String timeLeftFormatted;
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+
         if (hours > 0) {
             timeLeftFormatted = String.format(Locale.getDefault(),
                     "%d:%02d:%02d", hours, minutes, seconds);
@@ -157,13 +165,13 @@ public class MainActivity extends AppCompatActivity {
             mButtonSet.setVisibility(View.VISIBLE);
             mButtonStartPause.setText("Start");
 
-            if (mTimeLeftInMillis < 1000) {
+            if (_timeLeft < 1000) {
                 mButtonStartPause.setVisibility(View.INVISIBLE);
             } else {
                 mButtonStartPause.setVisibility(View.VISIBLE);
             }
 
-            if (mTimeLeftInMillis < mStartTimeInMillis) {
+            if (_timeLeft < _startTime) {
                 mButtonReset.setVisibility(View.VISIBLE);
             } else {
                 mButtonReset.setVisibility(View.INVISIBLE);
@@ -186,10 +194,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
-        editor.putLong("startTimeInMillis", mStartTimeInMillis);
-        editor.putLong("millisLeft", mTimeLeftInMillis);
+        editor.putLong("startTimeInMillis", _startTime);
+        editor.putLong("millisLeft", _timeLeft);
         editor.putBoolean("timerRunning", mTimerRunning);
-        editor.putLong("endTime", mEndTime);
+        editor.putLong("endTime", _endTime);
 
         editor.apply();
 
@@ -204,19 +212,19 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
-        mStartTimeInMillis = prefs.getLong("startTimeInMillis", 600000);
-        mTimeLeftInMillis = prefs.getLong("millisLeft", mStartTimeInMillis);
+        _startTime = prefs.getLong("startTimeInMillis", _startTime);
+        _timeLeft = prefs.getLong("millisLeft", _timeLeft);
         mTimerRunning = prefs.getBoolean("timerRunning", false);
 
         updateCountDownText();
         updateWatchInterface();
 
         if (mTimerRunning) {
-            mEndTime = prefs.getLong("endTime", 0);
-            mTimeLeftInMillis = mEndTime - System.currentTimeMillis();
+            _endTime = prefs.getLong("endTime", 0);
+            _timeLeft = _endTime - System.currentTimeMillis();
 
-            if (mTimeLeftInMillis < 0) {
-                mTimeLeftInMillis = 0;
+            if (_timeLeft < 0) {
+                _timeLeft = 0;
                 mTimerRunning = false;
                 updateCountDownText();
                 updateWatchInterface();
@@ -229,5 +237,4 @@ public class MainActivity extends AppCompatActivity {
     public void release(View view) {
         Toast.makeText(this, "Cat Released", Toast.LENGTH_SHORT).show();
     }
-
 }
