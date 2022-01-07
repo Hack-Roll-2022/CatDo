@@ -55,10 +55,13 @@ public class Window {
         mParams.gravity = Gravity.CENTER;
         mWindowManager = (WindowManager)context.getSystemService(WINDOW_SERVICE);
 
-        // play animation
-        Animation.specifyAnimation(mPopupScreen, 300, true);
+        // define path
+        // Path path = new Path();
+        // path.arcTo(0f, 0f, 1000f, 1000f, 270f, -180f, true);
+        // PathInterpolator pathInterpolator = new PathInterpolator(path);
 
-
+        // TODO: animation for window
+        Animation.specifyAnimation(mPopupScreen, 800, 280,true);
     }
 
 
