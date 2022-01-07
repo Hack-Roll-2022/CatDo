@@ -23,7 +23,7 @@ public class NotificationService extends IntentService {
         isRunning.set(true);
 
         while (isRunning.get()){
-            SystemClock.sleep(500);
+            SystemClock.sleep(2000);
 
             int reqCode = MainActivity.dummyReq;
             MainActivity.dummyReq += 1;
