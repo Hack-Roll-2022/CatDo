@@ -2,6 +2,7 @@ package com.example.catdonotification;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
 import android.app.ActivityManager;
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         checkOverlayPermission();
+
     }
 
     private void setTime(long timeInMs) {
@@ -413,19 +415,6 @@ public class MainActivity extends AppCompatActivity {
 
         // not start automatically
         // startService();
-    }
-}
-
-
-        final Button button = findViewById(R.id.button1);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                sayHi();
-            }
-        });
-
-        AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver(getApplicationContext());
-        ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
     }
 
     // trigger notification
