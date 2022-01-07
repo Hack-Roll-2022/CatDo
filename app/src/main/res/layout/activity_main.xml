@@ -15,21 +15,25 @@
         android:text="@string/release_the_cat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.452"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.908" />
+        app:layout_constraintVertical_bias="0.754" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="190dp"
-        android:layout_height="196dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="245dp"
+        android:layout_height="243dp"
+        android:layout_marginTop="116dp"
+        android:background="#FF5733"
         android:contentDescription="@string/cat"
+        android:fadeScrollbars="false"
+        android:padding="1dp"
+        android:onClick="select"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cat" />
+        app:srcCompat="@drawable/cat4" />
 
     <EditText
         android:id="@+id/edit_text_input"
@@ -73,6 +77,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/button2"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="@string/set_timer"
         android:id="@+id/button_start_pause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,5 +106,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
