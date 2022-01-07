@@ -14,6 +14,8 @@ import com.example.util.Animation;
 
 import static android.content.Context.WINDOW_SERVICE;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class Window {
 
     // declaring required variables
@@ -74,6 +76,13 @@ public class Window {
             if(mView.getWindowToken()==null) {
                 if(mView.getParent()==null) {
                     mWindowManager.addView(mView, mParams);
+                    GifImageView gifImg = mView.findViewById(R.id.movingCatGif);
+                    if (MainActivity.gifCat == 0) {
+                        gifImg.setImageResource(R.drawable.catnobg);
+                    } else {
+                        gifImg.setImageResource(R.drawable.cat2nobg);
+                    }
+
                 }
             }
         } catch (Exception e) {

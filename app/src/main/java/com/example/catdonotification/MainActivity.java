@@ -40,6 +40,7 @@ import com.example.util.AppLifecycleObserver;
 
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity {
     private long _startTime;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageButton setCat1, setCat2, setCat3, setCat4;
     public static int dummyReq;
-
+    public static int gifCat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -296,6 +297,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 ImageView img = findViewById(R.id.imageView);
                 img.setImageResource(R.drawable.cat1);
+                gifCat = 0;
                 dialog.hide();
             }
         });
@@ -305,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 ImageView img = findViewById(R.id.imageView);
                 img.setImageResource(R.drawable.cat2);
+                gifCat = 1;
                 dialog.hide();
             }
         });
