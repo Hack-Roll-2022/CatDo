@@ -15,10 +15,10 @@
         android:text="@string/release_the_cat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.754" />
+        app:layout_constraintVertical_bias="0.836" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -44,9 +44,10 @@
         android:maxLength="4"
         app:layout_constraintBottom_toTopOf="@+id/text_view_countdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.233"
+        app:layout_constraintHorizontal_bias="0.285"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.526" />
 
     <Button
         android:id="@+id/button_set"
@@ -66,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="340dp"
+        android:layout_marginTop="412dp"
         android:text="@string/_00_00"
         android:textColor="@android:color/black"
         android:textSize="60sp"
@@ -77,10 +78,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="@string/set_timer"
         android:id="@+id/button_start_pause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,9 +86,10 @@
         android:text="@string/start"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.309"
+        app:layout_constraintHorizontal_bias="0.256"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.727" />
 
     <Button
         android:id="@+id/button_reset"
@@ -102,9 +100,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.659"
+        app:layout_constraintHorizontal_bias="0.721"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.727"
         tools:visibility="visible" />
 
 
