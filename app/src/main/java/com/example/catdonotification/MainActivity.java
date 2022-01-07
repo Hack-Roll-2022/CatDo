@@ -2,9 +2,23 @@ package com.example.catdonotification;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.lifecycle.ProcessLifecycleOwner;
 
-import android.content.SharedPreferences;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
+import android.content.SharedPreferences;
+
+import android.os.Build;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+
+import android.media.RingtoneManager;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -13,14 +27,17 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import android.os.CountDownTimer;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Locale;
+import android.provider.Settings;
+import android.util.Log;
+
+import com.example.util.AppLifecycleObserver;
+
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
@@ -41,9 +58,14 @@ public class MainActivity extends AppCompatActivity {
     private boolean mTimerRunning;
 
 
+    private AppLifecycleObserver appLifecycleObserver = null;
+
+
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    private ImageButton setCat1, setCat2;
+
+    private ImageButton setCat1, setCat2, setCat3, setCat4;
+    public static int dummyReq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +118,9 @@ public class MainActivity extends AppCompatActivity {
                 resetTimer();
             }
         });
+
+        checkOverlayPermission();
+
     }
 
     private void setTime(long timeInMs) {
@@ -107,6 +132,12 @@ public class MainActivity extends AppCompatActivity {
     int curr = 0;
 
     private void startTimer() {
+        // turn on tracking of app lifecycle observer
+        if (appLifecycleObserver == null) {
+            appLifecycleObserver = new AppLifecycleObserver(getApplicationContext());
+        }
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
+
         _endTime = System.currentTimeMillis() + _timeLeft;
 
         mCountDownTimer = new CountDownTimer(_timeLeft, 1000) {
@@ -122,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 mTimerRunning = false;
                 updateWatchInterface();
+
+                ProcessLifecycleOwner.get().getLifecycle().removeObserver(appLifecycleObserver);
             }
         }.start();
 
@@ -130,6 +163,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void pauseTimer() {
+        ProcessLifecycleOwner.get().getLifecycle().removeObserver(appLifecycleObserver);
+
         mCountDownTimer.cancel();
         mTimerRunning = false;
         updateWatchInterface();
@@ -291,5 +326,60 @@ public class MainActivity extends AppCompatActivity {
 //                dialog.hide();
 //            }
 //        });
+    }
+
+    // check if service running
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // method to ask user to grant the Overlay permission
+    public void checkOverlayPermission(){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                // send user to the device settings
+                Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                startActivity(myIntent);
+            }
+        }
+    }
+
+    // check for permission again when user grants it from
+    // the device settings, and start the service
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // not start automatically
+        // startService();
+    }
+
+    public static void showNotification(Context context, String title, String message, Intent intent, int reqCode) {
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, reqCode, intent, PendingIntent.FLAG_ONE_SHOT);
+        String CHANNEL_ID = "channel_name";// The id of the channel.
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_notification_icon)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // create channel for newer android version
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Channel Name";// The user-visible name of the channel.
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+        notificationManager.notify(reqCode, notificationBuilder.build()); // 0 is the request code, it should be unique id
+        Log.d("showNotification", "showNotification: " + reqCode);
     }
 }
