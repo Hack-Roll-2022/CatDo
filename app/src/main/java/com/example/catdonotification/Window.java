@@ -1,15 +1,17 @@
 package com.example.catdonotification;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+
+import com.example.catdonotification.*;
 
 import static android.content.Context.WINDOW_SERVICE;
 
@@ -53,6 +55,9 @@ public class Window {
             @Override
             public void onClick(View view) {
                 close();
+                // TODO: close the service here
+                //Intent intent = new Intent(context, ForegroundService.class);
+                //context..stopService(intent);
             }
         });
 

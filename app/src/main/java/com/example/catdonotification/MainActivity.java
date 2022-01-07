@@ -1,6 +1,9 @@
 package com.example.catdonotification;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,20 +31,42 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // check if service running
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void closePreviousServiceIfAny() {
+        if (isMyServiceRunning(ForegroundService.class)) {
+            stopService(new Intent(this, ForegroundService.class));
+        }
+    }
+
     // method for starting the service
     public void startService(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // check if the user has already granted
             // the Draw over other apps permission
             if (Settings.canDrawOverlays(this)) {
+                closePreviousServiceIfAny();
+
                 // start the service based on the android version
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
                     startForegroundService(new Intent(this, ForegroundService.class));
                 } else {
                     startService(new Intent(this, ForegroundService.class));
                 }
             }
         } else {
+            closePreviousServiceIfAny();
+
             startService(new Intent(this, ForegroundService.class));
         }
     }
