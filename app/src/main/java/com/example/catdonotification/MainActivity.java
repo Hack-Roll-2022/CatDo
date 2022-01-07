@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+
 public class MainActivity extends AppCompatActivity {
     private long _startTime;
     private long _endTime;
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mButtonReset;
     private EditText mEditTextInput;
     private Button mButtonSet;
+    private MaterialProgressBar materialProgressBar;
 
     private CountDownTimer mCountDownTimer;
 
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    private ImageButton setCat1, setCat2, setCat3, setCat4;
+    private ImageButton setCat1, setCat2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         mButtonSet = findViewById(R.id.button_set);
         mButtonStartPause = findViewById(R.id.button_start_pause);
         mButtonReset = findViewById(R.id.button_reset);
+
+        materialProgressBar = findViewById(R.id.progress);
 
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,13 +103,18 @@ public class MainActivity extends AppCompatActivity {
         closeKeyboard();
     }
 
+    int curr = 0;
+
     private void startTimer() {
         _endTime = System.currentTimeMillis() + _timeLeft;
+        long interval = 1000 / _startTime * 100;
 
         mCountDownTimer = new CountDownTimer(_timeLeft, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 _timeLeft = millisUntilFinished;
+                materialProgressBar.setProgress(curr);
+                curr += (int) _startTime / 60000;
                 updateCountDownText();
             }
 
@@ -126,13 +137,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void resetTimer() {
         _timeLeft = _startTime;
+        materialProgressBar.setProgress(0);
         updateCountDownText();
         updateWatchInterface();
     }
 
     private void updateCountDownText() {
         int hours = (int) (_timeLeft / 1000) / 3600;
-        int minutes = (int) (_timeLeft / 1000) / 60;
+        int minutes = (int) ((_timeLeft / 1000) % 3600) / 60;
         int seconds = (int) (_timeLeft / 1000) % 60;
 
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
@@ -237,8 +249,8 @@ public class MainActivity extends AppCompatActivity {
         final View popupView = getLayoutInflater().inflate(R.layout.popup, null);
         setCat1 = (ImageButton) popupView.findViewById(R.id.cat1);
         setCat2 = (ImageButton) popupView.findViewById(R.id.cat2);
-        setCat3 = (ImageButton) popupView.findViewById(R.id.cat3);
-        setCat4 = (ImageButton) popupView.findViewById(R.id.cat4);
+//        setCat3 = (ImageButton) popupView.findViewById(R.id.cat3);
+//        setCat4 = (ImageButton) popupView.findViewById(R.id.cat4);
         dialogBuilder.setView(popupView);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -261,22 +273,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setCat3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImageView img = findViewById(R.id.imageView);
-                img.setImageResource(R.drawable.cat3);
-                dialog.hide();
-            }
-        });
-
-        setCat4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImageView img = findViewById(R.id.imageView);
-                img.setImageResource(R.drawable.cat4);
-                dialog.hide();
-            }
-        });
+//        setCat3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ImageView img = findViewById(R.id.imageView);
+//                img.setImageResource(R.drawable.cat3);
+//                dialog.hide();
+//            }
+//        });
+//
+//        setCat4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ImageView img = findViewById(R.id.imageView);
+//                img.setImageResource(R.drawable.cat4);
+//                dialog.hide();
+//            }
+//        });
     }
 }
