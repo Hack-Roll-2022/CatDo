@@ -154,12 +154,9 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 mTimerRunning = false;
                 updateWatchInterface();
-                System.out.println("[onFinished] I am DONE");
 
                 ProcessLifecycleOwner.get().getLifecycle().removeObserver(appLifecycleObserver);
-                System.out.println("[onFinished] Entered, shld be");
                 if (appLifecycleObserver != null) {
-                    System.out.println("Not null");
                     appLifecycleObserver.onEnterForeground(); // add 1 more just to check
 
                 }
@@ -173,9 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void pauseTimer() {
         ProcessLifecycleOwner.get().getLifecycle().removeObserver(appLifecycleObserver);
-        System.out.println("[pauseTimer] Entered, shld be");
         if (appLifecycleObserver != null) {
-            System.out.println("Not null");
             appLifecycleObserver.onEnterForeground(); // add 1 more just to check
 
         }
@@ -187,9 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void resetTimer() {
         ProcessLifecycleOwner.get().getLifecycle().removeObserver(appLifecycleObserver);
-        System.out.println("[resetTimer] Entered, shld be");
         if (appLifecycleObserver != null) {
-            System.out.println("Not null");
             appLifecycleObserver.onEnterForeground(); // add 1 more just to check
 
         }
@@ -295,9 +288,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 ProcessLifecycleOwner.get().getLifecycle().removeObserver(appLifecycleObserver);
-                System.out.println("[onStart] Entered, shld be");
                 if (appLifecycleObserver != null) {
-                    System.out.println("Not null");
                     appLifecycleObserver.onEnterForeground(); // add 1 more just to check
 
                 }

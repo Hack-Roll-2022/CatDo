@@ -50,8 +50,6 @@ public class AppLifecycleObserver implements LifecycleObserver {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         boolean isScreenOn = pm.isInteractive();
 
-        System.out.println("isStarted: " + isStarted + ", isScreenOn: "  + isScreenOn);
-
         if (!isStarted && isScreenOn) {
             SystemClock.sleep(2000);
 
