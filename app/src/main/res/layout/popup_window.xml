@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/popup_overall"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp"
+    android:background="@null">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/popup_screen"
+        android:layout_width="383dp"
+        android:layout_height="wrap_content"
+
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="#00000000"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="361dp"
+            android:layout_height="170dp"
+            android:src="@drawable/catnobg"
+            tools:ignore="ImageContrastCheck" />
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
+
