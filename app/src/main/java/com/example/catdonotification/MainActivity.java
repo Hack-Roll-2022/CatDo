@@ -126,14 +126,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startTimer() {
-        // TODO
         // turn on tracking of app lifecycle observer
         if (appLifecycleObserver == null) {
             appLifecycleObserver = new AppLifecycleObserver(getApplicationContext());
         }
         ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
-        System.out.println("LOG: HIIIII");
-
 
         _endTime = System.currentTimeMillis() + _timeLeft;
 
@@ -319,40 +316,6 @@ public class MainActivity extends AppCompatActivity {
                 dialog.hide();
             }
         });
-
-
-
-        /* TODO: Old code
-        // use release the cat to start annoying
-        View releaseCatBtn = findViewById(R.id.start_annoy);
-
-        // now use the clicking to determine if to listen to app life cycle ob
-        releaseCatBtn.setOnClickListener(new View.OnClickListener() {
-            private boolean isToCheck = true;
-            private AppLifecycleObserver appLifecycleObserver
-                    = null;
-            @Override
-            public void onClick(View view) {
-                //startWin();
-                if (isToCheck) {
-                    if (appLifecycleObserver == null) {
-                        appLifecycleObserver = new AppLifecycleObserver(getApplicationContext());
-                    }
-
-                    ProcessLifecycleOwner.get().getLifecycle()
-                            .addObserver(appLifecycleObserver);
-                } else {
-                    ProcessLifecycleOwner.get().getLifecycle()
-                            .removeObserver(appLifecycleObserver);
-                }
-
-                isToCheck = !isToCheck;
-            }
-        });
-
-         */
-
-
     }
 
     // check if service running
@@ -364,35 +327,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return false;
-    }
-
-    private void stopService() {
-        if (isMyServiceRunning(ForegroundService.class)) {
-            stopService(new Intent(this, ForegroundService.class));
-        }
-    }
-
-    // method for starting the service
-    public void startService(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            // check if the user has already granted
-            // the Draw over other apps permission
-            if (Settings.canDrawOverlays(this)) {
-                stopService();
-
-                // start the service based on the android version
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-                    startForegroundService(new Intent(this, ForegroundService.class));
-                } else {
-                    startService(new Intent(this, ForegroundService.class));
-                }
-            }
-        } else {
-            stopService();
-
-            startService(new Intent(this, ForegroundService.class));
-        }
     }
 
     // method to ask user to grant the Overlay permission
@@ -412,17 +346,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         // not start automatically
         // startService();
-    }
-
-    // trigger notification
-    public void sayHi(){
-        int reqCode = dummyReq;
-        dummyReq += 1;
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        showNotification(this, "hi", "fuck you!", intent, reqCode);
     }
 
     public static void showNotification(Context context, String title, String message, Intent intent, int reqCode) {
@@ -447,6 +372,4 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.notify(reqCode, notificationBuilder.build()); // 0 is the request code, it should be unique id
         Log.d("showNotification", "showNotification: " + reqCode);
     }
-
-
 }

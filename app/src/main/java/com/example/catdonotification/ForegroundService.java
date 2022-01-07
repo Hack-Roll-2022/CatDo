@@ -27,18 +27,14 @@ public class ForegroundService extends Service {
     public void onCreate() {
         //Update Window
         super.onCreate();
-        // create the custom or default notification
-        // based on the android version
+        // create the custom or default notification based on the android version
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             startMyOwnForeground();
         else
             startForeground(1, new Notification());
 
-        // create an instance of Window class
-        // and display the content on screen
-
+        // create an instance of Window class and display the content on screen
         this.window = new Window(this);
-        System.out.println("IS THIS EMPTY ?" + (this.window != null));
         window.open();
     }
 
