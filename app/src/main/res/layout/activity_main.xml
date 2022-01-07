@@ -9,8 +9,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="412dp"
-        android:layout_height="218dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_margin="10dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="20dp"
@@ -18,16 +19,18 @@
         app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
-        tools:layout_editor_absoluteX="1dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="142dp"
-                android:layout_height="139dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:contentDescription="@string/app_name"
@@ -37,7 +40,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_bias="0.8"
                 app:srcCompat="@drawable/cat1" />
 
             <TextView
@@ -67,21 +70,22 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="325dp"
-            android:layout_height="350dp">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
             <me.zhanghai.android.materialprogressbar.MaterialProgressBar
                 android:id="@+id/progress"
                 style="@style/Widget.MaterialProgressBar.ProgressBar"
-                android:layout_width="262dp"
-                android:layout_height="277dp"
+                android:layout_width="270dp"
+                android:layout_height="270dp"
                 android:minWidth="290dp"
                 android:minHeight="290dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.392" />
+                app:layout_constraintVertical_bias="0.35" />
 
             <TextView
                 android:id="@+id/text_view_countdown"
@@ -94,10 +98,10 @@
                 android:textSize="50sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.375"
+                app:layout_constraintHorizontal_bias="0.503"
                 app:layout_constraintStart_toStartOf="@+id/progress"
                 app:layout_constraintTop_toTopOf="@+id/progress"
-                app:layout_constraintVertical_bias="0.389" />
+                app:layout_constraintVertical_bias="0.411" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -105,8 +109,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
-        android:layout_width="410dp"
-        android:layout_height="218dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="20dp"
@@ -135,10 +139,10 @@
                 android:maxLength="4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.315"
+                app:layout_constraintHorizontal_bias="0.273"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.271" />
+                app:layout_constraintVertical_bias="0.273" />
 
             <Button
                 android:id="@+id/button_start_pause"
@@ -149,10 +153,10 @@
                 app:backgroundTint="#FE7300"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.318"
+                app:layout_constraintHorizontal_bias="0.272"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.784" />
+                app:layout_constraintVertical_bias="0.782" />
 
             <Button
                 android:id="@+id/button_reset"
