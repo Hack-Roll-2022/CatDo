@@ -82,7 +82,7 @@ public class Window {
         //PathInterpolator pathInterpolator = new PathInterpolator(path);
 
         // TODO: animation for window
-        Animation.specifyAnimation(mPopupScreen, 300, true);
+        Animation.specifyAnimation(mPopupScreen, 800, 280,true);
 
 
     }
