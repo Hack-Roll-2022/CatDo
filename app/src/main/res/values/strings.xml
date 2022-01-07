@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">CatDoNotification</string>
+    <string name="app_name">CatDo</string>
+    <string name="cat">cat</string>
+    <string name="release_the_cat">Release the cat</string>
+    <string name="set_timer">Set timer</string>
+    <string name="minutes">Minutes</string>
+    <string name="set">Set</string>
+    <string name="_00_00">00:00</string>
+    <string name="start">start</string>
+    <string name="reset">reset</string>
+    <string name="change_cat">Change cat</string>
+    <string name="popup">popup</string>
 </resources>

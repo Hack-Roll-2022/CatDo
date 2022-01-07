@@ -30,11 +30,15 @@ public class AppLifecycleObserver implements LifecycleObserver {
         // entered fore ground
         Log.d("fore",ProcessLifecycleOwner.get().getLifecycle().getCurrentState().toString());
 
-
         if (isStarted) {
             SystemClock.sleep(2000);
+            // end popup
             context.stopService(new Intent(context, ForegroundService.class));
             isStarted = false;
+
+            // end notification, with atomic bool
+            NotificationService.isRunning.compareAndSet(true, false);
+            context.stopService(new Intent(context, NotificationService.class));
         }
     }
 
@@ -45,8 +49,13 @@ public class AppLifecycleObserver implements LifecycleObserver {
 
         if (! isStarted) {
             SystemClock.sleep(2000);
+
+            // start popup
             context.startService(new Intent(context, ForegroundService.class));
             isStarted = true;
+
+            // start notification
+            context.startService(new Intent(context, NotificationService.class));
         }
     }
 

@@ -47,25 +47,6 @@ public class Window {
         // inflating the view with the custom layout we created
         mView = layoutInflater.inflate(R.layout.popup_window, null);
 
-        //View mPopupBtn = mView.findViewById(R.id.window_close);
-
-        // set onClickListener on the remove button, which removes
-        // the view from the window
-        /*
-        mPopupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                close();
-                // TODO: close the service here
-                //Intent intent = new Intent(context, ForegroundService.class);
-                //context..stopService(intent);
-            }
-        });
-        */
-
-
-        // TODO: make window draggable
-        // ref: https://stackoverflow.com/questions/9035678/android-how-to-dragmove-popupwindow
         View mPopupScreen = mView.findViewById(R.id.popup_screen);
 
 
@@ -74,17 +55,13 @@ public class Window {
         mParams.gravity = Gravity.CENTER;
         mWindowManager = (WindowManager)context.getSystemService(WINDOW_SERVICE);
 
-
-
         // define path
-        //Path path = new Path();
-        //path.arcTo(0f, 0f, 1000f, 1000f, 270f, -180f, true);
-        //PathInterpolator pathInterpolator = new PathInterpolator(path);
+        // Path path = new Path();
+        // path.arcTo(0f, 0f, 1000f, 1000f, 270f, -180f, true);
+        // PathInterpolator pathInterpolator = new PathInterpolator(path);
 
         // TODO: animation for window
         Animation.specifyAnimation(mPopupScreen, 800, 280,true);
-
-
     }
 
 
