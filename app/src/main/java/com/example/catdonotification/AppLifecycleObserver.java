@@ -25,6 +25,7 @@ public class AppLifecycleObserver implements LifecycleObserver {
     public void onEnterForeground() {
         // entered fore ground
         Log.d("fore",ProcessLifecycleOwner.get().getLifecycle().getCurrentState().toString());
+        context.stopService(new Intent(context, NotificationService.class));
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
@@ -36,21 +37,14 @@ public class AppLifecycleObserver implements LifecycleObserver {
         boolean isScreenOn = pm.isInteractive();
 
         // if screen is not locked
-        for (int i = 0; i < 10 ; i++) {
-            if (isScreenOn) {
-                BackPushNotification();
-            }
+        if (isScreenOn) {
+            BackPushNotification();
         }
     }
 
     // use static method to show notification
     private void BackPushNotification(){
-        int reqCode = MainActivity.dummyReq;
-        MainActivity.dummyReq += 1;
-        Intent intent = new Intent(context, MainActivity.class);
-        MainActivity.showNotification(context, "hi", "fuck you!", intent, reqCode);
+        context.startService(new Intent(context, NotificationService.class));
     }
-
-
 
 }
