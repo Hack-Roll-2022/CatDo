@@ -15,51 +15,46 @@
         android:text="@string/release_the_cat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.452"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.754" />
+        app:layout_constraintVertical_bias="0.908" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="245dp"
-        android:layout_height="243dp"
-        android:layout_marginTop="84dp"
+        android:layout_width="190dp"
+        android:layout_height="196dp"
+        android:layout_marginTop="40dp"
         android:contentDescription="@string/cat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cat" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/set_timer"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.769" />
-
     <EditText
         android:id="@+id/edit_text_input"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/text_view_countdown"
-        android:layout_centerHorizontal="true"
-        android:hint="Minutes"
+        android:hint="@string/minutes"
         android:inputType="number"
-        android:maxLength="4" />
+        android:maxLength="4"
+        app:layout_constraintBottom_toTopOf="@+id/text_view_countdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.233"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
         android:id="@+id/button_set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/edit_text_input"
-        android:layout_toEndOf="@+id/edit_text_input"
-        android:text="Set" />
+        android:text="@string/set"
+        app:layout_constraintBottom_toTopOf="@+id/text_view_countdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.37"
+        app:layout_constraintStart_toEndOf="@+id/edit_text_input"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.478" />
 
     <TextView
         android:id="@+id/text_view_countdown"
@@ -67,27 +62,41 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="00:00"
+        android:layout_marginTop="340dp"
+        android:text="@string/_00_00"
         android:textColor="@android:color/black"
-        android:textSize="60sp" />
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_start_pause"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_start_pause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text_view_countdown"
         android:layout_centerHorizontal="true"
-        android:text="start" />
+        android:layout_marginTop="468dp"
+        android:text="@string/start"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.309"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text_view_countdown"
-        android:layout_marginStart="11dp"
-        android:layout_toEndOf="@+id/button_start_pause"
-        android:text="reset"
+        android:layout_marginTop="468dp"
+        android:text="@string/reset"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.659"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
