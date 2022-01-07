@@ -24,9 +24,7 @@ public class MainActivity extends AppCompatActivity {
         releaseCatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Clicked");
                 startService();
-                System.out.printf("After called");
             }
         });
     }
