@@ -22,6 +22,11 @@
             android:exported="true"/>
 
 
+        <service
+            android:name=".NotificationService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity
             android:name=".SplashActivity"
             android:exported="true">

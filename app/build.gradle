@@ -27,8 +27,12 @@ android {
     }
 }
 
+
 dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
+    implementation "androidx.lifecycle:lifecycle-runtime:2.0.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    implementation 'androidx.core:core:1.6.0'
     implementation "androidx.lifecycle:lifecycle-runtime:2.0.0"
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
     implementation 'androidx.core:core:1.6.0'
