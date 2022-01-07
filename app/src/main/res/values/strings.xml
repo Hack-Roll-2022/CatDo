@@ -3,4 +3,6 @@
     <string name="cat">cat</string>
     <string name="release_the_cat">Release the cat</string>
     <string name="set_timer">Set timer</string>
+    <string name="change_cat">Change cat</string>
+    <string name="popup">popup</string>
 </resources>
