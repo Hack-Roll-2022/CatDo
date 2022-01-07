@@ -10,15 +10,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.content.SharedPreferences;
+
+import android.os.Build;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 
 import android.media.RingtoneManager;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import android.os.CountDownTimer;
@@ -34,6 +39,8 @@ import android.util.Log;
 import com.example.util.AppLifecycleObserver;
 
 
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+
 public class MainActivity extends AppCompatActivity {
     private long _startTime;
     private long _endTime;
@@ -44,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mButtonReset;
     private EditText mEditTextInput;
     private Button mButtonSet;
+    private MaterialProgressBar materialProgressBar;
 
     private CountDownTimer mCountDownTimer;
 
@@ -55,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
+
     private ImageButton setCat1, setCat2, setCat3, setCat4;
     public static int dummyReq;
 
@@ -69,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         mButtonSet = findViewById(R.id.button_set);
         mButtonStartPause = findViewById(R.id.button_start_pause);
         mButtonReset = findViewById(R.id.button_reset);
+
+        materialProgressBar = findViewById(R.id.progress);
 
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
         closeKeyboard();
     }
 
+    int curr = 0;
+
     private void startTimer() {
         // turn on tracking of app lifecycle observer
         if (appLifecycleObserver == null) {
@@ -131,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 _timeLeft = millisUntilFinished;
+                curr++;
+                materialProgressBar.setProgress((int) (curr * 100000 / _startTime));
                 updateCountDownText();
             }
 
@@ -157,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void resetTimer() {
         _timeLeft = _startTime;
+        materialProgressBar.setProgress(0);
+        curr = 0;
         updateCountDownText();
         updateWatchInterface();
     }
@@ -268,8 +285,8 @@ public class MainActivity extends AppCompatActivity {
         final View popupView = getLayoutInflater().inflate(R.layout.popup, null);
         setCat1 = (ImageButton) popupView.findViewById(R.id.cat1);
         setCat2 = (ImageButton) popupView.findViewById(R.id.cat2);
-        setCat3 = (ImageButton) popupView.findViewById(R.id.cat3);
-        setCat4 = (ImageButton) popupView.findViewById(R.id.cat4);
+//        setCat3 = (ImageButton) popupView.findViewById(R.id.cat3);
+//        setCat4 = (ImageButton) popupView.findViewById(R.id.cat4);
         dialogBuilder.setView(popupView);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -292,23 +309,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setCat3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImageView img = findViewById(R.id.imageView);
-                img.setImageResource(R.drawable.cat3);
-                dialog.hide();
-            }
-        });
-
-        setCat4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImageView img = findViewById(R.id.imageView);
-                img.setImageResource(R.drawable.cat4);
-                dialog.hide();
-            }
-        });
+//        setCat3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ImageView img = findViewById(R.id.imageView);
+//                img.setImageResource(R.drawable.cat3);
+//                dialog.hide();
+//            }
+//        });
+//
+//        setCat4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ImageView img = findViewById(R.id.imageView);
+//                img.setImageResource(R.drawable.cat4);
+//                dialog.hide();
+//            }
+//        });
     }
 
     // check if service running
