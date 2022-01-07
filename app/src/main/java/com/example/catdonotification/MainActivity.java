@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import android.os.CountDownTimer;
@@ -107,14 +108,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void startTimer() {
         _endTime = System.currentTimeMillis() + _timeLeft;
-        long interval = 1000 / _startTime * 100;
 
         mCountDownTimer = new CountDownTimer(_timeLeft, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 _timeLeft = millisUntilFinished;
-                materialProgressBar.setProgress(curr);
-                curr += (int) _startTime / 60000;
+                curr++;
+                materialProgressBar.setProgress((int) (curr * 100000 / _startTime));
                 updateCountDownText();
             }
 
@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
     private void resetTimer() {
         _timeLeft = _startTime;
         materialProgressBar.setProgress(0);
+        curr = 0;
         updateCountDownText();
         updateWatchInterface();
     }
