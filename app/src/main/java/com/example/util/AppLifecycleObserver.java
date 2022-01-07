@@ -41,11 +41,7 @@ public class AppLifecycleObserver implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     public void onEnterBackground() {
         // entered background
-
         Log.d("back",ProcessLifecycleOwner.get().getLifecycle().getCurrentState().toString());
-        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        boolean isScreenOn = pm.isInteractive();
-
 
         if (! isStarted) {
             SystemClock.sleep(2000);
@@ -53,18 +49,6 @@ public class AppLifecycleObserver implements LifecycleObserver {
             isStarted = true;
         }
     }
-
-    // use static method to show notification
-    private void BackPushNotification(){
-        /*
-        int reqCode = MainActivity.dummyReq;
-        MainActivity.dummyReq += 1;
-        Intent intent = new Intent(context, MainActivity.class);
-        MainActivity.showNotification(context, "hi", "fuck you!", intent, reqCode);
-
-         */
-    }
-
 
 
 }

@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 
-import com.example.util.Animation;
 import com.example.util.AppLifecycleObserver;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,25 +24,34 @@ public class MainActivity extends AppCompatActivity {
 
         // use release the cat to start annoying
         View releaseCatBtn = findViewById(R.id.start_annoy);
+
+        // now use the clicking to determine if to listen to app life cycle ob
         releaseCatBtn.setOnClickListener(new View.OnClickListener() {
-            private boolean isToStart = true;
+            private boolean isToCheck = true;
+            private AppLifecycleObserver appLifecycleObserver
+                    = null;
             @Override
             public void onClick(View view) {
                 //startWin();
-                if (isToStart) {
-                    startService();
+                if (isToCheck) {
+                    if (appLifecycleObserver == null) {
+                        appLifecycleObserver = new AppLifecycleObserver(getApplicationContext());
+                    }
+
+                    ProcessLifecycleOwner.get().getLifecycle()
+                            .addObserver(appLifecycleObserver);
                 } else {
-                    stopService();
+                    ProcessLifecycleOwner.get().getLifecycle()
+                            .removeObserver(appLifecycleObserver);
                 }
 
-                isToStart = !isToStart;
+                isToCheck = !isToCheck;
             }
         });
 
-        //Animation.specifyAnimation(releaseCatBtn, 500, true);
 
-        AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver(getApplicationContext());
-        ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
+
+
     }
 
     // check if service running
