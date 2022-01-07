@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">CatDoNotification</string>
+    <string name="cat">cat</string>
+    <string name="release_the_cat">Release the cat</string>
+    <string name="set_timer">Set timer</string>
 </resources>

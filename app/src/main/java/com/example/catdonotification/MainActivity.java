@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import android.os.CountDownTimer;
 import android.view.View;
@@ -221,5 +223,9 @@ public class MainActivity extends AppCompatActivity {
                 startTimer();
             }
         }
+    }
+
+    public void release(View view) {
+        Toast.makeText(this, "Cat Released", Toast.LENGTH_SHORT).show();
     }
 }
