@@ -13,6 +13,8 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 public class ForegroundService extends Service {
+    private Window window;
+
     public ForegroundService() {
     }
 
@@ -34,13 +36,19 @@ public class ForegroundService extends Service {
 
         // create an instance of Window class
         // and display the content on screen
-        Window window=new Window(this);
+
+        this.window = new Window(this);
         window.open();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        window.close();
     }
 
     // for android version >=O we need to create

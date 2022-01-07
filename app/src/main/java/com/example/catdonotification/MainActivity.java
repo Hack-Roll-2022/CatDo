@@ -1,6 +1,7 @@
 package com.example.catdonotification;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ProcessLifecycleOwner;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.provider.Settings;
 import android.view.View;
 
 import com.example.util.Animation;
+import com.example.util.AppLifecycleObserver;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,13 +26,24 @@ public class MainActivity extends AppCompatActivity {
         // use release the cat to start annoying
         View releaseCatBtn = findViewById(R.id.start_annoy);
         releaseCatBtn.setOnClickListener(new View.OnClickListener() {
+            private boolean isToStart = true;
             @Override
             public void onClick(View view) {
-                startService();
+                //startWin();
+                if (isToStart) {
+                    startService();
+                } else {
+                    stopService();
+                }
+
+                isToStart = !isToStart;
             }
         });
 
         //Animation.specifyAnimation(releaseCatBtn, 500, true);
+
+        AppLifecycleObserver appLifecycleObserver = new AppLifecycleObserver(getApplicationContext());
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
     }
 
     // check if service running
@@ -44,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private void closePreviousServiceIfAny() {
+    private void stopService() {
         if (isMyServiceRunning(ForegroundService.class)) {
             stopService(new Intent(this, ForegroundService.class));
         }
@@ -56,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             // check if the user has already granted
             // the Draw over other apps permission
             if (Settings.canDrawOverlays(this)) {
-                closePreviousServiceIfAny();
+                stopService();
 
                 // start the service based on the android version
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -67,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         } else {
-            closePreviousServiceIfAny();
+            stopService();
 
             startService(new Intent(this, ForegroundService.class));
         }
