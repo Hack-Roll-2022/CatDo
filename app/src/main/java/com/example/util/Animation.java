@@ -63,7 +63,7 @@ public class Animation {
             @Override
             public void onAnimationEnd(Animator animation) {
                 if (!mCanceled) {
-                    SystemClock.sleep(1000);
+                    //SystemClock.sleep(1000);
                     animation.start();
                 }
             }

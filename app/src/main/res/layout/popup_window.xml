@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/popup_overall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,57 +9,24 @@
     android:padding="20dp"
     android:background="@null">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="383dp"
-        android:layout_height="192dp" />
-
     <androidx.cardview.widget.CardView
         android:id="@+id/popup_screen"
         android:layout_width="383dp"
         android:layout_height="wrap_content"
 
         android:layout_centerInParent="true"
-        app:cardCornerRadius="5dp"
+        app:cardBackgroundColor="#00000000"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity=""
-            android:orientation="vertical"
-            android:padding="10dp"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/titleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="10dp"
-                android:text="Annoy you _(:3 L)\\_"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/popup_screen" />
-
-            <Button
-                android:id="@+id/window_close"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Remove"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/popup_screen" />
-
-        </LinearLayout>
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="361dp"
+            android:layout_height="170dp"
+            android:src="@drawable/catnobg"
+            tools:ignore="ImageContrastCheck" />
 
     </androidx.cardview.widget.CardView>
 
