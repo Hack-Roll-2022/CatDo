@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 
+import com.example.util.Animation;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
                 startService();
             }
         });
+
+        //Animation.specifyAnimation(releaseCatBtn, 500, true);
     }
 
     // check if service running

@@ -1,24 +1,16 @@
 package com.example.catdonotification;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.PathInterpolator;
 
-import com.example.catdonotification.*;
+import com.example.util.Animation;
 
 import static android.content.Context.WINDOW_SERVICE;
 
@@ -106,37 +98,13 @@ public class Window {
         //path.arcTo(0f, 0f, 1000f, 1000f, 270f, -180f, true);
         //PathInterpolator pathInterpolator = new PathInterpolator(path);
 
-        specifyAnimation(mPopupScreen);
+        // TODO: animation for window
+        Animation.specifyAnimation(mPopupScreen, 100, true);
 
 
     }
 
-    public void specifyAnimation(View view) {
-        final Animator translationDownAnimator = ObjectAnimator
-                .ofFloat(view, View.TRANSLATION_Y, 1000f)
-                .setDuration(1700);
 
-        final Animator alphaAnimator = ObjectAnimator
-                .ofFloat(view, View.ALPHA, 1f, 0.5f)
-                .setDuration(1000);
-
-        final Animator translationUpAnimator = ObjectAnimator
-                .ofFloat(view, View.TRANSLATION_Y, -200f)
-                .setDuration(1700);
-
-        final Animator alphaAnimator2 = ObjectAnimator
-                .ofFloat(view, View.ALPHA, 0.5f, 1f)
-                .setDuration(1000);
-
-        final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playSequentially(
-                translationDownAnimator,
-                alphaAnimator,
-                translationUpAnimator,
-                alphaAnimator2
-        );
-        animatorSet.start();
-    }
 
     public void open() {
 
