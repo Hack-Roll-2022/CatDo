@@ -19,6 +19,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private TextView mTextViewCountDown;
     private Button mButtonStartPause;
     private Button mButtonReset;
@@ -228,4 +229,5 @@ public class MainActivity extends AppCompatActivity {
     public void release(View view) {
         Toast.makeText(this, "Cat Released", Toast.LENGTH_SHORT).show();
     }
+
 }
