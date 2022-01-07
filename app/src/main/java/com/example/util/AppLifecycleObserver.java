@@ -27,6 +27,13 @@ public class AppLifecycleObserver implements LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onEnterForeground() {
+        System.out.println("Entered sneaky + " + MainActivity.mTimerRunning);
+
+        if (MainActivity.mTimerRunning) {
+            ProcessLifecycleOwner.get().getLifecycle().removeObserver(this);
+
+        }
+
         // entered fore ground
         Log.d("fore",ProcessLifecycleOwner.get().getLifecycle().getCurrentState().toString());
 
@@ -47,7 +54,12 @@ public class AppLifecycleObserver implements LifecycleObserver {
         // entered background
         Log.d("back",ProcessLifecycleOwner.get().getLifecycle().getCurrentState().toString());
 
-        if (! isStarted) {
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        boolean isScreenOn = pm.isInteractive();
+
+        System.out.println("isStarted: " + isStarted + ", isScreenOn: "  + isScreenOn);
+
+        if (!isStarted && isScreenOn) {
             SystemClock.sleep(2000);
 
             // start popup
