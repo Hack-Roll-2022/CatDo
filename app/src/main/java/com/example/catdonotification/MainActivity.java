@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,7 +15,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         checkOverlayPermission();
-        startService();
+
+        // use release the cat to start annoying
+        View releaseCatBtn = findViewById(R.id.start_annoy);
+        releaseCatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Clicked");
+                startService();
+                System.out.printf("After called");
+            }
+        });
     }
 
     // method for starting the service
@@ -22,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // check if the user has already granted
             // the Draw over other apps permission
-            if(Settings.canDrawOverlays(this)) {
+            if (Settings.canDrawOverlays(this)) {
                 // start the service based on the android version
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     startForegroundService(new Intent(this, ForegroundService.class));
@@ -30,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     startService(new Intent(this, ForegroundService.class));
                 }
             }
-        }else{
+        } else {
             startService(new Intent(this, ForegroundService.class));
         }
     }
@@ -52,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        startService();
+
+        // not start automatically
+        // startService();
     }
 }
 

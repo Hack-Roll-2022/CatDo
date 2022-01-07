@@ -6,6 +6,7 @@ import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -43,14 +44,46 @@ public class Window {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // inflating the view with the custom layout we created
         mView = layoutInflater.inflate(R.layout.popup_window, null);
+
+        View mPopupWindow = mView.findViewById(R.id.window_close);
+
         // set onClickListener on the remove button, which removes
         // the view from the window
-        mView.findViewById(R.id.window_close).setOnClickListener(new View.OnClickListener() {
+        mPopupWindow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 close();
             }
         });
+
+
+        /*
+        // TODO: make window draggable
+        // ref: https://stackoverflow.com/questions/9035678/android-how-to-dragmove-popupwindow
+        mPopupWindow.showAtLocation(parentView, Gravity.CENTER, mPosX, mPosY);
+        mView.setOnTouchListener(new View.OnTouchListener() {
+            private int dx = 0;
+            private int dy = 0;
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        dx = mPosX - motionEvent.getRawX();
+                        dy = mPosY - motionEvent.getRawY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        mPosX = (int) (motionEvent.getRawX() + dx);
+                        mPosY = (int) (motionEvent.getRawY() + dy);
+                        pop.update(mPosX, mPosY, -1, -1);
+                        break;
+                }
+                return true;
+            }
+        });
+
+         */
+
         // Define the position of the
         // window within the screen
         mParams.gravity = Gravity.CENTER;
@@ -82,13 +115,19 @@ public class Window {
             // invalidate the view
             mView.invalidate();
             // remove all views
-            ((ViewGroup)mView.getParent()).removeAllViews();
+            System.out.println("So far ok");
+
+            ViewGroup parents = ((ViewGroup)mView.getParent());
+            if (parents != null) {
+                parents.removeAllViews();
+            }
 
             // the above steps are necessary when you are adding and removing
             // the view simultaneously, it might give some exceptions
         } catch (Exception e) {
             Log.d("Error2",e.toString());
         }
+        System.out.println("All done");
     }
 }
 
