@@ -38,6 +38,7 @@ public class ForegroundService extends Service {
         // and display the content on screen
 
         this.window = new Window(this);
+        System.out.println("IS THIS EMPTY ?" + (this.window != null));
         window.open();
     }
 

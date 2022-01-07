@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
     private boolean mTimerRunning;
 
 
+    private AppLifecycleObserver appLifecycleObserver = null;
+
+
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private ImageButton setCat1, setCat2, setCat3, setCat4;
@@ -98,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
                 resetTimer();
             }
         });
+
+        checkOverlayPermission();
     }
 
     private void setTime(long timeInMs) {
@@ -107,6 +112,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startTimer() {
+        // TODO
+        // turn on tracking of app lifecycle observer
+        if (appLifecycleObserver == null) {
+            appLifecycleObserver = new AppLifecycleObserver(getApplicationContext());
+        }
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(appLifecycleObserver);
+        System.out.println("LOG: HIIIII");
+
+
         _endTime = System.currentTimeMillis() + _timeLeft;
 
         mCountDownTimer = new CountDownTimer(_timeLeft, 1000) {
@@ -120,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 mTimerRunning = false;
                 updateWatchInterface();
+
+                ProcessLifecycleOwner.get().getLifecycle().removeObserver(appLifecycleObserver);
             }
         }.start();
 
@@ -128,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void pauseTimer() {
+        ProcessLifecycleOwner.get().getLifecycle().removeObserver(appLifecycleObserver);
+
         mCountDownTimer.cancel();
         mTimerRunning = false;
         updateWatchInterface();
@@ -141,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateCountDownText() {
         int hours = (int) (_timeLeft / 1000) / 3600;
-        int minutes = (int) (_timeLeft / 1000) / 60;
+        int minutes = (int) ((_timeLeft / 1000) % 3600) / 60;
         int seconds = (int) (_timeLeft / 1000) % 60;
 
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
@@ -288,8 +306,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        checkOverlayPermission();
 
+
+        /* TODO: Old code
         // use release the cat to start annoying
         View releaseCatBtn = findViewById(R.id.start_annoy);
 
@@ -317,7 +336,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+         */
 
 
     }

@@ -30,7 +30,6 @@ public class AppLifecycleObserver implements LifecycleObserver {
         // entered fore ground
         Log.d("fore",ProcessLifecycleOwner.get().getLifecycle().getCurrentState().toString());
 
-
         if (isStarted) {
             SystemClock.sleep(2000);
             context.stopService(new Intent(context, ForegroundService.class));

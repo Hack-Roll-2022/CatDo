@@ -80,8 +80,7 @@ public class Window {
         //Path path = new Path();
         //path.arcTo(0f, 0f, 1000f, 1000f, 270f, -180f, true);
         //PathInterpolator pathInterpolator = new PathInterpolator(path);
-
-        // TODO: animation for window
+        System.out.println("yes yes yes");
         Animation.specifyAnimation(mPopupScreen, 300, true);
 
 
